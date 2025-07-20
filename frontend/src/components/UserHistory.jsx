@@ -14,7 +14,7 @@ export default function UserHistory({ history, username, isLoading = false }) {
 
   if (isLoading) {
     return (
-      <div className="w-full max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/30">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/30 h-full">
         <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center space-x-2">
           <History className="h-6 w-6 text-purple-500" />
           <span>Claim History</span>
@@ -35,7 +35,7 @@ export default function UserHistory({ history, username, isLoading = false }) {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/30">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/30 h-full">
       <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center space-x-2">
         <History className="h-6 w-6 text-purple-500" />
         <span>Claim History</span>
@@ -51,14 +51,14 @@ export default function UserHistory({ history, username, isLoading = false }) {
           <p className="text-gray-400 text-sm">Start claiming points to see history!</p>
         </div>
       ) : (
-        <div className="space-y-3 max-h-64 overflow-y-auto">
+        <div className="space-y-3 max-h-80 overflow-y-auto">
           {history.map((claim, index) => (
             <div
               key={claim._id}
               className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 rounded-xl transition-all duration-200 border border-purple-100"
             >
               <div className="flex items-center space-x-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full shadow-md">
+                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full shadow-md hover:shadow-lg transform hover:scale-110 transition-all duration-200">
                   <Star className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -72,7 +72,7 @@ export default function UserHistory({ history, username, isLoading = false }) {
                 </div>
               </div>
               
-              <div className="text-sm text-purple-600 bg-purple-100 px-2 py-1 rounded-lg">
+              <div className="text-sm text-purple-600 bg-purple-100 px-2 py-1 rounded-lg hover:bg-purple-200 transition-colors duration-200">
                 #{history.length - index}
               </div>
             </div>

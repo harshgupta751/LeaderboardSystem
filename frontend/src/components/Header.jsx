@@ -18,9 +18,6 @@ export default function Header() {
       </div>
       
       {/* Subtitle */}
-      <p className="text-white/90 text-lg mb-6 bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 max-w-md mx-auto">
-        Compete, Claim Points & Rise to the Top!
-      </p>
       
       {/* Decorative elements */}
       <div className="flex justify-center space-x-4 mb-6">

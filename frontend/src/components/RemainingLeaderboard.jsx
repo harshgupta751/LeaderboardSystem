@@ -44,14 +44,14 @@ export default function RemainingLeaderboard({ users, isLoading = false }) {
           const rank = index + 4;
           
           return (
-            <div key={user._id} className="flex items-center space-x-4 p-4 hover:bg-gray-50 transition-colors duration-200">
+            <div key={user._id} className="flex items-center space-x-4 p-4 hover:bg-gray-50 transition-all duration-200 hover:scale-[1.02] hover:shadow-md rounded-lg">
               {/* Rank */}
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors duration-200">
                 <span className="text-gray-600 font-semibold text-sm">{rank}</span>
               </div>
               
               {/* Profile */}
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center shadow-md">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transform hover:scale-110 transition-all duration-200">
                 <span className="text-white font-semibold">
                   {user.username.charAt(0).toUpperCase()}
                 </span>
@@ -64,8 +64,8 @@ export default function RemainingLeaderboard({ users, isLoading = false }) {
               </div>
               
               {/* Points */}
-              <div className="flex items-center space-x-1 bg-orange-50 px-3 py-1 rounded-full">
-                <Star className="w-4 h-4 text-orange-400" />
+              <div className="flex items-center space-x-1 bg-orange-50 px-3 py-1 rounded-full hover:bg-orange-100 transition-colors duration-200">
+                <Star className="w-4 h-4 text-orange-400 hover:animate-spin" />
                 <span className="text-orange-600 font-semibold">
                   {user.totalPoints.toLocaleString()}
                 </span>

@@ -34,15 +34,18 @@ export default function AddUserForm({
               onChange={(e) => onUsernameChange(e.target.value)}
               placeholder="Enter username..."
               disabled={isLoading}
-              className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200 hover:border-purple-300 focus:scale-[1.02]"
             />
           </div>
           
           <button
             type="submit"
             disabled={isLoading || !username.trim()}
-            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg transform hover:scale-105 disabled:hover:scale-100"
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg transform hover:scale-105 disabled:hover:scale-100 relative overflow-hidden group"
           >
+            {/* Button shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+            
             {isLoading ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
@@ -50,8 +53,8 @@ export default function AddUserForm({
               </>
             ) : (
               <>
-                <UserPlus className="h-4 w-4" />
-                <span>Add User</span>
+                <UserPlus className="h-4 w-4 relative z-10" />
+                <span className="relative z-10">Add User</span>
               </>
             )}
           </button>

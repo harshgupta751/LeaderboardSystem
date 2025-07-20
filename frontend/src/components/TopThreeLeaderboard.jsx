@@ -74,10 +74,10 @@ export default function TopThreeLeaderboard({ users, isLoading = false }) {
             </div>
             
             {/* Card */}
-            <div className={`${styles.bg} ${styles.border} border-2 rounded-2xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300`}>
+            <div className={`${styles.bg} ${styles.border} border-2 rounded-2xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl`}>
               {/* Profile Image */}
               <div className="relative mb-4">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto flex items-center justify-center shadow-lg">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-200">
                   <span className="text-white font-bold text-xl">
                     {user.username.charAt(0).toUpperCase()}
                   </span>
@@ -96,11 +96,14 @@ export default function TopThreeLeaderboard({ users, isLoading = false }) {
               
               {/* Points */}
               <div className="flex items-center justify-center space-x-1">
-                <Star className="w-4 h-4 text-orange-400" />
+                <Star className="w-4 h-4 text-orange-400 animate-pulse" />
                 <span className="text-lg font-bold text-gray-700">
                   {user.totalPoints.toLocaleString()}
                 </span>
               </div>
+              
+              {/* Subtle glow effect for top 3 */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/10 to-orange-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             </div>
           </div>
         );

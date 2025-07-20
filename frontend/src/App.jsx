@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { User } from 'lucide-react';
 import Header from './components/Header';
 import TopThreeLeaderboard from './components/TopThreeLeaderboard';
 import RemainingLeaderboard from './components/RemainingLeaderboard';
@@ -7,6 +8,7 @@ import AddUserForm from './components/AddUserForm';
 import ClaimButton from './components/ClaimButton';
 import PointsDisplay from './components/PointsDisplay';
 import UserHistory from './components/UserHistory';
+import Footer from './components/Footer';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -160,7 +162,8 @@ function App() {
         <Header />
         
         {/* User Management Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+          {/* Add User Form */}
           <AddUserForm
             username={username}
             onUsernameChange={setUsername}
@@ -170,7 +173,8 @@ function App() {
             success={success}
           />
           
-          <div>
+          {/* User Selection and Claim */}
+          <div className="space-y-4">
             <UserSelector
               users={users}
               selectedUserId={selectedUserId}
@@ -184,32 +188,46 @@ function App() {
               isLoading={isClaimLoading}
               selectedUsername={selectedUser?.username}
             />
+            
+            {/* Points Display */}
+            <PointsDisplay
+              randomPoints={claimResult?.randomPoints}
+              totalPoints={claimResult?.totalPoints}
+              username={claimResult?.username}
+              isVisible={showClaimResult}
+            />
+          </div>
+          
+          {/* User History */}
+          <div className="xl:col-span-1">
+            {selectedUserId ? (
+              <UserHistory
+                history={userHistory}
+                username={selectedUser?.username}
+                isLoading={isHistoryLoading}
+              />
+            ) : (
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/30 h-full flex items-center justify-center">
+                <div className="text-center">
+                  <div className="bg-gray-100 rounded-full p-4 w-16 h-16 mx-auto mb-4">
+                    <User className="h-8 w-8 text-gray-400 mx-auto" />
+                  </div>
+                  <p className="text-gray-500 text-lg">Select a user</p>
+                  <p className="text-gray-400 text-sm">to view claim history</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Points Display */}
-        <PointsDisplay
-          randomPoints={claimResult?.randomPoints}
-          totalPoints={claimResult?.totalPoints}
-          username={claimResult?.username}
-          isVisible={showClaimResult}
-        />
 
         {/* Leaderboard Section */}
         <div className="mb-8">
           <TopThreeLeaderboard users={users} isLoading={isLoading} />
           <RemainingLeaderboard users={users} isLoading={isLoading} />
         </div>
-
-        {/* User History */}
-        {selectedUserId && (
-          <UserHistory
-            history={userHistory}
-            username={selectedUser?.username}
-            isLoading={isHistoryLoading}
-          />
-        )}
       </div>
+      
+      <Footer />
     </div>
   );
 }
