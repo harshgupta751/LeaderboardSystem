@@ -4,7 +4,7 @@ import { ClaimHistoryModel, ObjectId, UserModel } from './db.js'
 const app= express()
 
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['https://systemleaderboard.netlify.app/'],
     credentials: true
 }))
 
