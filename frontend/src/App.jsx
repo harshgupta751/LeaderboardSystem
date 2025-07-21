@@ -14,6 +14,7 @@ import axiosInstance from './api/axiosInstance';
 function App() {
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState('');
+  const [isAddingUser, setIsAddingUser] = useState(false)
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isClaimLoading, setIsClaimLoading] = useState(false);
@@ -43,7 +44,7 @@ function App() {
     if (!username.trim()) return;
     
     try {
-      setIsLoading(true);
+      setIsAddingUser(true);
       setError('');
       setSuccess('');
       
@@ -63,7 +64,7 @@ function App() {
       setError('Failed to add user');
       setTimeout(() => setError(''), 3000);
     } finally {
-      setIsLoading(false);
+      setIsAddingUser(false);
     }
   };
 
@@ -150,7 +151,7 @@ function App() {
             username={username}
             onUsernameChange={setUsername}
             onSubmit={handleAddUser}
-            isLoading={isLoading}
+            isLoading={isAddingUser}
             error={error}
             success={success}
           />
