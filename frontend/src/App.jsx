@@ -54,7 +54,7 @@ function App() {
         fetchUsers();   // Refresh the list
         setTimeout(() => setSuccess(''), 3000);
       }
-      if(response.data.message==="Username already exists!"){
+     else if(response.data.message==="Username already exists!"){
           setError(response.data.message);
           setTimeout(() => setError(''), 3000);
       }
