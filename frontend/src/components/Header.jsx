@@ -17,7 +17,6 @@ export default function Header() {
         </div>
       </div>
       
-      {/* Subtitle */}
       
       {/* Decorative elements */}
       <div className="flex justify-center space-x-4 mb-6">

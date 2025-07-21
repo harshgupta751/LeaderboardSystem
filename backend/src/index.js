@@ -3,7 +3,10 @@ import cors from 'cors'
 import { ClaimHistoryModel, ObjectId, UserModel } from './db.js'
 const app= express()
 
-app.use(cors())
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true
+}))
 
 app.use(express.json())
 
@@ -32,7 +35,7 @@ await UserModel.create({
     totalPoints: 0
 })
 res.json({
-    message: "User added"
+    message: "User added successfully!"
 })
 }catch(e){
     res.status(403).json({

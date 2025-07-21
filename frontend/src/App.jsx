@@ -9,6 +9,7 @@ import ClaimButton from './components/ClaimButton';
 import PointsDisplay from './components/PointsDisplay';
 import UserHistory from './components/UserHistory';
 import Footer from './components/Footer';
+import axiosInstance from './api/axiosInstance';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,16 +24,13 @@ function App() {
   const [userHistory, setUserHistory] = useState([]);
   const [isHistoryLoading, setIsHistoryLoading] = useState(false);
 
-  // Mock API base URL - replace with your actual backend URL
-  const API_BASE = 'http://localhost:3000';
 
   // Fetch all users
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${API_BASE}/users`);
-      const data = await response.json();
-      setUsers(data.allUsers || []);
+      const response = await axiosInstance.get('/users');
+      setUsers(response.data.allUsers || []);
     } catch (err) {
       setError('Failed to fetch users');
     } finally {
@@ -49,25 +47,18 @@ function App() {
       setError('');
       setSuccess('');
       
-      const response = await fetch(`${API_BASE}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: username.trim() }),
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setSuccess('User added successfully!');
+      const response = await axiosInstance.post('/users',{ username: username.trim() })
+      if(response.data.message==="User added successfully!"){
+        setSuccess(response.data.message);
         setUsername('');
-        fetchUsers(); // Refresh the list
+        fetchUsers();   // Refresh the list
         setTimeout(() => setSuccess(''), 3000);
-      } else {
-        setError(data.message || 'Failed to add user');
-        setTimeout(() => setError(''), 3000);
       }
+      if(response.data.message==="Username already exists!"){
+          setError(response.data.message);
+          setTimeout(() => setError(''), 3000);
+      }
+        
     } catch (err) {
       setError('Failed to add user');
       setTimeout(() => setError(''), 3000);
@@ -84,16 +75,11 @@ function App() {
       setIsClaimLoading(true);
       setShowClaimResult(false);
       
-      const response = await fetch(`${API_BASE}/claim/${selectedUserId}`, {
-        method: 'POST',
-      });
+      const response = await axiosInstance.post(`/claim/${selectedUserId}`)
       
-      const data = await response.json();
-      
-      if (response.ok) {
         setClaimResult({
-          randomPoints: data.randomPoints,
-          totalPoints: data.totalPoints,
+          randomPoints: response.data.randomPoints,
+          totalPoints: response.data.totalPoints,
           username: users.find(u => u._id === selectedUserId)?.username
         });
         setShowClaimResult(true);
@@ -104,10 +90,7 @@ function App() {
         
         // Hide result after 5 seconds
         setTimeout(() => setShowClaimResult(false), 5000);
-      } else {
-        setError(data.message || 'Failed to claim points');
-        setTimeout(() => setError(''), 3000);
-      }
+  
     } catch (err) {
       setError('Failed to claim points');
       setTimeout(() => setError(''), 3000);
@@ -122,9 +105,8 @@ function App() {
     
     try {
       setIsHistoryLoading(true);
-      const response = await fetch(`${API_BASE}/history/${userId}`);
-      const data = await response.json();
-      setUserHistory(data.userClaimHistory || []);
+      const response = await axiosInstance.get(`/history/${userId}`)
+      setUserHistory(response.data.userClaimHistory || []);
     } catch (err) {
       console.error('Failed to fetch user history');
     } finally {
