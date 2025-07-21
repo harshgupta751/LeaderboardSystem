@@ -151,7 +151,8 @@ function App() {
             username={username}
             onUsernameChange={setUsername}
             onSubmit={handleAddUser}
-            isLoading={isAddingUser}
+            isAddingUser={isAddingUser}
+            isLoading={isLoading}
             error={error}
             success={success}
           />
